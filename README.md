@@ -25,7 +25,7 @@ me ==> Developer[
 ```console
 wei@github:~$ ./streak.sh
 
-  total contributions  3,905       Mar 25, 2011 - present
+  contributions        1,433       in 2026
   current streak       1 day       Nov 11, 2026 - Nov 11, 2026
   longest streak       27 days     Sep 3, 2026 - Sep 29, 2026
 
