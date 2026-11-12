@@ -1,5 +1,3 @@
-<img src="https://blog.byweili.com/images/avatar.svg" alt="Wei Li" width="150" align="right">
-
 ```console
 wei@github:~$ whoami
 ██╗    ██╗ ███████╗ ██╗      ██╗      ██╗
