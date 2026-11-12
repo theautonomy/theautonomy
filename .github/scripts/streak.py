@@ -22,12 +22,10 @@ def gql(query, **variables):
     return body["data"]
 
 
-years = gql(
-    "query($u:String!){user(login:$u){contributionsCollection{contributionYears}}}", u=USER
-)["user"]["contributionsCollection"]["contributionYears"]
+today = dt.datetime.now(dt.timezone.utc).date()
 
 days = {}
-for year in years:
+for year in [today.year]:
     cal = gql(
         """query($u:String!,$f:DateTime!,$t:DateTime!){user(login:$u){
              contributionsCollection(from:$f,to:$t){contributionCalendar{
@@ -38,10 +36,8 @@ for year in years:
         for d in week["contributionDays"]:
             days[dt.date.fromisoformat(d["date"])] = d["contributionCount"]
 
-today = dt.datetime.now(dt.timezone.utc).date()
 dates = sorted(d for d in days if d <= today)
 total = sum(days[d] for d in dates)
-first = next((d for d in dates if days[d]), today)
 
 # longest run of consecutive active days
 longest, run_start, best = 0, None, (None, None)
@@ -77,7 +73,7 @@ block = f"""<!-- streak:start -->
 ```console
 wei@github:~$ ./streak.sh
 
-  total contributions  {total:<10,}  {fmt(first)} - present
+  contributions        {total:<10,}  in {today.year}
   current streak       {n_days(current):<10}  {span(cur_start, cur_end) if current else "-"}
   longest streak       {n_days(longest):<10}  {span(*best)}
 
