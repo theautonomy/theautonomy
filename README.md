@@ -25,7 +25,11 @@ me ==> Developer[
 ```console
 wei@github:~$ ./streak.sh
 
-  waiting for the first run of .github/workflows/streak.yml ...
+  total contributions  1,287       Mar 25, 2011 - present
+  current streak       1 day       Nov 11, 2026 - Nov 11, 2026
+  longest streak       12 days     Dec 4, 2025 - Dec 15, 2025
+
+  last updated 2026-11-12 UTC
 ```
 <!-- streak:end -->
 
