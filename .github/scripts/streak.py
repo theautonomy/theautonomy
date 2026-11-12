@@ -24,8 +24,12 @@ def gql(query, **variables):
 
 today = dt.datetime.now(dt.timezone.utc).date()
 
+years = gql(
+    "query($u:String!){user(login:$u){contributionsCollection{contributionYears}}}", u=USER
+)["user"]["contributionsCollection"]["contributionYears"]
+
 days = {}
-for year in [today.year]:
+for year in years:
     cal = gql(
         """query($u:String!,$f:DateTime!,$t:DateTime!){user(login:$u){
              contributionsCollection(from:$f,to:$t){contributionCalendar{
@@ -38,10 +42,13 @@ for year in [today.year]:
 
 dates = sorted(d for d in days if d <= today)
 total = sum(days[d] for d in dates)
+first = next((d for d in dates if days[d]), today)
+year_dates = [d for d in dates if d.year == today.year]
+year_total = sum(days[d] for d in year_dates)
 
-# longest run of consecutive active days
+# longest run of consecutive active days this year
 longest, run_start, best = 0, None, (None, None)
-for d in dates:
+for d in year_dates:
     if days[d]:
         run_start = run_start or d
         if (d - run_start).days + 1 > longest:
@@ -73,7 +80,8 @@ block = f"""<!-- streak:start -->
 ```console
 wei@github:~$ ./streak.sh
 
-  contributions        {total:<10,}  in {today.year}
+  contributions        {year_total:<10,}  in {today.year}
+  total contributions  {total:<10,}  {fmt(first)} - present
   current streak       {n_days(current):<10}  {span(cur_start, cur_end) if current else "-"}
   longest streak       {n_days(longest):<10}  {span(*best)}
 
