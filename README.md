@@ -27,10 +27,10 @@ wei@github:~$ ./streak.sh
 
   contributions        1,444       in 2026
   total contributions  3,918       Mar 25, 2011 - present
-  current streak       1 day       Nov 15, 2026 - Nov 15, 2026
+  current streak       0 days      -
   longest streak       27 days     Sep 3, 2026 - Sep 29, 2026
 
-  last updated 2026-11-16 UTC
+  last updated 2026-11-17 UTC
 ```
 <!-- streak:end -->
 
